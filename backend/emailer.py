@@ -56,8 +56,8 @@ def reset_email_html(name: str, link: str) -> str:
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#0A0E17;padding:32px;font-family:Arial,sans-serif;color:#F8FAFC">
   <tr><td align="center">
     <table width="520" cellpadding="0" cellspacing="0" style="background:#162032;border:1px solid #334155;border-radius:8px;padding:28px">
-      <tr><td style="font-size:20px;font-weight:bold">Sentinel<span style="color:#00F0FF">Mar</span> — password reset</td></tr>
-      <tr><td style="padding-top:14px;font-size:14px;line-height:20px;color:#CBD5E1">Hello {name},<br/>A password reset was requested for your authority account. This link expires in 60 minutes and can be used once.</td></tr>
+      <tr><td style="font-size:20px;font-weight:bold">Varuna <span style="color:#00F0FF">Netra</span> — password reset</td></tr>
+      <tr><td style="padding-top:14px;font-size:14px;line-height:20px;color:#CBD5E1">Hello {name},<br/>A password reset was requested for your Varuna Netra account. This link expires in 60 minutes and can be used once.</td></tr>
       <tr><td style="padding-top:20px"><a href="{link}" style="background:#00F0FF;color:#0A0E17;padding:10px 18px;border-radius:4px;text-decoration:none;font-weight:bold;font-size:13px">Reset password</a></td></tr>
       <tr><td style="padding-top:18px;font-size:11px;color:#94A3B8">If you did not request this, ignore this email. The request has been recorded in the audit log.</td></tr>
     </table>
@@ -66,5 +66,5 @@ def reset_email_html(name: str, link: str) -> str:
 
 
 def test_email_html(name: str) -> str:
-    return f"""<div style="font-family:Arial,sans-serif;padding:24px;background:#0A0E17;color:#F8FAFC"><h2>Sentinel<span style="color:#00F0FF">Mar</span> email delivery test</h2>
+    return f"""<div style="font-family:Arial,sans-serif;padding:24px;background:#0A0E17;color:#F8FAFC"><h2>Varuna <span style="color:#00F0FF">Netra</span> email delivery test</h2>
 <p style="color:#CBD5E1">Hello {name}, Resend delivery is configured correctly. Password-reset and alert emails will be sent from this address.</p></div>"""

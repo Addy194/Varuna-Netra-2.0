@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main, sih-judge-polish]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  repository-safety:
+    name: Repository safety
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Reject tracked secret/runtime files
+        shell: bash
+        run: |
+          set -euo pipefail
+          forbidden="$(git ls-files | grep -E '(^|/)\.tok$|(^|/)\.env$|(^|/)\.env\.test$|(^|/)test_credentials\.md$' || true)"
+          if [ -n "$forbidden" ]; then
+            echo "Forbidden secret/runtime files are tracked:"
+            echo "$forbidden"
+            exit 1
+          fi
+
+      - name: Reject merge-conflict markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -E '^(<<<<<<<|=======|>>>>>>>)' -- ':!*.lock' ':!*.md'; then
+            echo "Merge-conflict markers found."
+            exit 1
+          fi
+
+  backend-static:
+    name: Backend syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile Python sources
+        run: python -m compileall -q backend
+
+  frontend-build:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: yarn
+          cache-dependency-path: frontend/yarn.lock
+
+      - name: Install Yarn 1
+        run: npm install --global yarn@1.22.22
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        env:
+          CI: 'false'
+          REACT_APP_BACKEND_URL: http://localhost:8000
+        run: yarn build

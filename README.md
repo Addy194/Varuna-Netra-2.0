@@ -4,6 +4,20 @@
 
 > **Decision support — not a legal determination.** Varuna Netra ranks investigation candidates and preserves evidence/provenance for analyst review. It does not automatically declare legal responsibility.
 
+## Live deployment
+
+**Varuna Netra is live:** [Open the deployed application](https://vessel-correlate-1.emergent.host)
+
+> Live URL: `https://vessel-correlate-1.emergent.host`
+
+## Product screenshots
+
+The gallery below shows the deployed Varuna Netra interface, including spill surveillance, the historical spill archive, the SIH judge walkthrough, and live AIS ingestion/coverage views.
+
+[![Varuna Netra product screenshots](docs/screenshots/varuna-netra-gallery.jpg)](https://vessel-correlate-1.emergent.host)
+
+_Click the screenshot gallery to open the live application._
+
 ## Why this project exists
 
 Oil discharges at sea are often detected after the responsible vessel has moved away. Investigators must combine satellite imagery, vessel tracks, timing, ocean conditions and jurisdictional context quickly and defensibly.
